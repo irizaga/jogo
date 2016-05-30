@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0"/>
+        <!-- o viewport dá ao browser a habilidade de ajustar as dimensões, dependendo do dispositivo -->
+        <title>Platformer 2D</title>
+        <!-- a seguir, a chamada de todos os .js da engine -->
+        <script src='lib/quintus.js'></script>
+        <script src='lib/quintus_sprites.js'></script>
+        <script src='lib/quintus_scenes.js'></script>
+        <script src='lib/quintus_input.js'></script>
+        <script src='lib/quintus_anim.js'></script>
+        <script src='lib/quintus_2d.js'></script>
+        <script src='lib/quintus_touch.js'></script>
+        <script src='lib/quintus_ui.js'></script>
+        <script src='lib/quintus_tmx.js'></script>
+        <script src='platformer.js'></script>
+        <style> 
+            /* folha de estilos */
+            body { background-color: #414852; }
+            h1 { font-family: sans-serif; color: white; text-align: center; 
+                border: 2px outset; margin-left: 25%; margin-right: 25%; text-shadow: 2px 2px black;}
+            h2 { text-align: left; }
+            /* as declarações abaixo se referem ao menu lateral */
+            button.accordion { background-color: midnightblue; color: white; 
+                            cursor: pointer; padding: 20px; width: 15%;
+                            border: none; text-align: justify; outline: inherit;
+                            font-size: 15px; font-weight: bold; transition: 0.4s; }
+            /* acima, as características dos botões exibidos */
+            button.accordion.active, button.accordion:hover { background-color: white; color: midnightblue; }
+            /* acima, as mudanças ao passar o mouse ou clicar nos botões */
+            div.panel { padding: 0; background-color: gray; max-height: 0;
+                    overflow: hidden; width: 15%; transition: 0.6s ease-in-out; 
+                    opacity: 0; text-align: justify; font-size: 15px; font-family: sans-serif;} 
+            /* acima, as características dos painéis exibidos ao clicar num botão */
+            div.panel.show { opacity: 1; max-height: 500px; width: 15%; }
+            /* acima, as características do painel totalmente aberto */
+        </style>
+    </head>
+    <body>
+        <h1> Jogo de plataforma</h1>
+        <!-- criação do canvas com float à direita -->
+        <canvas id="jogo" width="700" height="500" style="border:5px solid #000000; float:right">
+            <script>
+                var Q = window.Q = Quintus().setup(jogo)
+                .include("Sprites, Scenes, Input, 2D, Anim, Touch, UI, TMX")
+                .controls().touch()
+            </script>
+        <!-- o script inicia uma nova instância da engine -->
+        </canvas>
+        
+        <aside>
+            <!-- os botões abaixo formarão o menu lateral -->
+            <button class="accordion">Instruções</button>
+            <div class="panel">
+                <p>Mova o jogador até a porta. Pule nos inimigos para matá-los.</p>
+            </div>
+
+            <button class="accordion">Controles</button>
+            <div class="panel">
+                <p>Setas: movem o jogador <br> Espaço: salto</p>
+            </div>
+
+            <button class="accordion">Informações</button>
+            <div class="panel">
+                <p>O jogo foi desenvolvido com a engine Quintus e o site em html/css. Possui 2 fases ativas, criadas no Tiled. Mais informações podem ser encontradas no relatório sobre o jogo.</p>
+            </div>
+        </aside>
+        
+        <script>
+            /* o script habilita a animação do menu lateral */
+            var acc = document.getElementsByClassName("accordion");
+            var i;
+            for (i = 0; i < acc.length; i++) {
+                acc[i].onclick = function(){
+                this.classList.toggle("active");
+                this.nextElementSibling.classList.toggle("show");
+                }
+            }
+        </script>
+    </body>
+</html>
